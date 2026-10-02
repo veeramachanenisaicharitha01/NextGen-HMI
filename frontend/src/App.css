@@ -20,11 +20,11 @@
 body {
   margin: 0;
   font-family: 'Times New Roman', Times, serif;    /*Defualt font for the application*/
-  background: #f7f8f8;                           /*Default background color for the application*/
+  background: #e8edf2;                           /*Default background color for the application*/
 }
 
 .hmi {
-  width: 100vw;            /*100% of the browser/display width*/
+  width: 100%;            /*100% of the browser/display width*/
   min-height: 100vh;       /*100% of the browser/display height*/
   background: #ffffff;
 }
@@ -120,44 +120,201 @@ body {
 
 /* Power flow layout */
 
-.power-flow {
+.system-diagram {
+  width: 100%;
+  padding: 25px 15px;
+}
+
+/* Main AC -> Rectifier -> Load path */
+
+.main-power-path {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* One component in the system diagram */
+
+.diagram-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+
+/* Square representing the equipment/icon */
+
+.diagram-icon {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  min-height: 180px;
-}
-
-/* Power flow component boxes */
-
-.power-box {
-  width: 150px;
-  min-height: 90px;
-  padding: 15px;
-  background: #f4f6f8;
   border: 2px solid #64748b;
   border-radius: 8px;
+  background: #f4f6f8;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+/* Text underneath each icon */
+
+.diagram-label {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  font-size: 13px;
 }
 
-/* Component name inside each power box */
+.diagram-label span {
+  margin-top: 3px;
+}
 
-.power-box h3 {
-  margin: 0 0 10px;
+/* Horizontal connection between components */
+
+.diagram-connection {
+  position: relative;
+  width: 100px;
+  height: 72px;
+  flex-shrink: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.connection-line {
+  position: absolute;
+  left: 0;
+  right: 12px;
+  top: 50%;
+  height: 3px;
+  background: #64748b;
+  transform: translateY(-50%);
+}
+
+.connection-arrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Battery Branch */
+
+.battery-branch-area {
+  position: relative;
+}
+
+/* Small connection point on the DC line */
+
+.branch-point {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: #64748b;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+/* Vertical line going from DC line toward Battery */
+
+.battery-branch-line {
+  position: absolute;
+  width: 3px;
+  height: 90px;
+  background: #64748b;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+/* Battery Position */
+
+.battery-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+  padding-left: 190px;
+}
+
+/* Individual equipment types */
+
+.ac-icon {
+  border-radius: 50%;
+}
+
+.rectifier-icon {
+  border-radius: 8px;
+}
+
+.load-icon {
+  border-radius: 8px;
+}
+
+.battery-icon {
+  border-radius: 6px;
+}
+
+/* Indicates that the system status cards are clickable */
+
+.status-card {
+  cursor: pointer;
+}
+
+/* ============================================================
+   SYSTEM DETAILS PANEL
+   Displays additional information for whichever system section the operator selects.
+   ============================================================ */
+
+.details-section {
+  margin: 0 15px 15px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+.details-section h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.details-content {
+  background: #f4f6f8;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.details-content p {
+  margin: 8px 0;
   font-size: 16px;
 }
 
-/* System value displayed in each power box */
+.main-content {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 15px;
+  padding: 0 15px 15px;
+  width: 100%;
+}
 
-.power-box p {
+.main-content .power-section {
   margin: 0;
-  font-size: 16px;
-  font-weight: bold;
+  min-width: 0;
 }
 
-/* Power flow arrows */
-
-.arrow {
-  font-size: 32px;
-  font-weight: bold;
+.main-content .details-section {
+  margin: 0;
+  min-width: 0;
 }
