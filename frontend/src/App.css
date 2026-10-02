@@ -1,0 +1,163 @@
+/* ============================================================
+   NEXTGEN POWER HMI - MAIN STYLESHEET
+   This file controls the visual appearance of the HMI,
+   ============================================================ */
+/* ============================================================
+   GLOBAL SETTINGS
+   ============================================================ */
+
+/* Apply border-box sizing to every element.*/
+
+* {
+  box-sizing: border-box;
+}
+
+/*
+   BODY / PAGE SETTINGS
+   Removes the browser's default margin and defines the default font and background color for the application.
+*/
+
+body {
+  margin: 0;
+  font-family: 'Times New Roman', Times, serif;    /*Defualt font for the application*/
+  background: #f7f8f8;                           /*Default background color for the application*/
+}
+
+.hmi {
+  width: 100vw;            /*100% of the browser/display width*/
+  min-height: 100vh;       /*100% of the browser/display height*/
+  background: #ffffff;
+}
+
+/* ============================================================
+   HMI HEADER
+   ============================================================ */
+
+/*
+   Top section containing:
+   - NextGen Power
+   - System Overview
+*/
+
+.hmi-header {
+  background: #1f2937;
+  color: white;
+  padding: 16px 24px;
+}
+
+/* Main "NextGen Power" heading. */
+
+.hmi-header h1 {
+  margin: 0;
+  font-size: 25px;
+}
+
+/* Smaller "System Overview" text below the main heading. */
+
+.hmi-header p {
+  margin: 4px 0 0;
+  font-size: 14px;
+}
+
+/* ============================================================
+   SYSTEM STATUS BAR
+   ============================================================ */
+/* Container for the 6 system status cards */
+
+.status-bar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  padding: 15px;
+}
+
+/* Individual system status card. Each card contains a system category and its current value. */
+
+.status-card {
+  background: #f4f6f8;
+  border: 1px solid #00050a;
+  border-radius: 6px;
+  padding: 12px;
+  text-align: center;
+}
+
+/* Status card heading */
+
+.status-card h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+/* Status card value */
+
+.status-card p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* ============================================================
+   SYSTEM POWER-FLOW SECTION
+   ============================================================ */
+
+/* Main container for the power-flow visualization */
+
+.power-section {
+  margin: 0 15px 15px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #00060c;
+  border-radius: 8px;
+}
+
+/* "System power flow" section tile */
+
+.power-section h2 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 20px;
+}
+
+/* Power flow layout */
+
+.power-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-height: 180px;
+}
+
+/* Power flow component boxes */
+
+.power-box {
+  width: 150px;
+  min-height: 90px;
+  padding: 15px;
+  background: #f4f6f8;
+  border: 2px solid #64748b;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Component name inside each power box */
+
+.power-box h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+/* System value displayed in each power box */
+
+.power-box p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Power flow arrows */
+
+.arrow {
+  font-size: 32px;
+  font-weight: bold;
+}
