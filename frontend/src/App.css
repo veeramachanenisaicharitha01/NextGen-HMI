@@ -33,67 +33,221 @@ body {
    HMI HEADER
    ============================================================ */
 
-/*
-   Top section containing:
-   - NextGen Power
-   - System Overview
-*/
-
 .hmi-header {
+  width: 100%;
+  min-height: 90px;
+  display: flex;
+  align-items: stretch;
   background: #1f2937;
   color: white;
-  padding: 16px 24px;
+  padding: 0;
 }
 
-/* Main "NextGen Power" heading. */
+/* PRODUCT NAME - LEFT SIDE */
 
-.hmi-header h1 {
+.header-brand {
+  width: 210px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 20px;
+  border-right: 1px solid #00040a;
+}
+
+.header-brand h1 {
   margin: 0;
-  font-size: 25px;
+  font-size: 22px;
 }
 
-/* Smaller "System Overview" text below the main heading. */
-
-.hmi-header p {
+.header-brand p {
   margin: 4px 0 0;
-  font-size: 14px;
+  font-size: 12px;
+  color: #cbd5e1;
 }
 
-/* ============================================================
-   SYSTEM STATUS BAR
-   ============================================================ */
-/* Container for the 6 system status cards */
+/* ACTIVE AREA - RIGHT SIDE OF HEADER */
 
-.status-bar {
+.active-area {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  padding: 15px;
+  padding: 0;
+  background: transparent;
 }
 
-/* Individual system status card. Each card contains a system category and its current value. */
+/* INDIVIDUAL HEADER FUNCTION */
 
-.status-card {
-  background: #f4f6f8;
-  border: 1px solid #00050a;
-  border-radius: 6px;
-  padding: 12px;
-  text-align: center;
+.header-icon {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  border: none;
+  border-right: 1px solid #00050c;
+  background: transparent;
+  color: rgb(8, 0, 0);
+  cursor: pointer;
+  font-family: inherit;
 }
 
-/* Status card heading */
+/* ICON */
 
-.status-card h3 {
-  margin: 0 0 8px;
-  font-size: 14px;
-}
-
-/* Status card value */
-
-.status-card p {
-  margin: 0;
-  font-size: 18px;
+.icon-symbol {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #94a3b8;
+  border-radius: 5px;
+  font-size: 11px;
   font-weight: bold;
+  background: #334155;
+  color: rgb(8, 0, 0);
+}
+
+.ac-symbol {
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+/* TEXT NEXT TO ICON */
+
+.header-icon-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.icon-title {
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.icon-value {
+  margin-top: 3px;
+  font-size: 11px;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+/* HOVER */
+
+.header-icon:hover {
+  background: #334155;
+}
+
+/* SELECTED FUNCTION */
+
+.header-icon.selected {
+  background: #475569;
+}
+
+.header-icon.selected .icon-symbol {
+  background: #f8fafc;
+  color: #1f2937;
+  border-color: #f8fafc;
+}
+
+/* SYSTEM STATUS BAR */
+
+.active-area {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  background: #f4f6f8;
+  border-bottom: 1px solid #cbd5e1;
+  padding: 10px 20px;
+}
+
+/* Individual selectable function */
+
+.header-icon {
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 105px;
+  cursor: pointer;
+  font-family: inherit;
+  border-right: 1px solid #d6dce3;
+}
+
+/* Remove line from last icon */
+
+.header-icon:last-child {
+  border-right: none;
+}
+
+/* Icon graphic */
+
+.icon-symbol {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #64748b;
+  border-radius: 6px;
+  background: white;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* AC source is circular like the electrical symbol */
+
+.ac-symbol {
+  border-radius: 50%;
+  font-size: 24px;
+}
+
+/* Battery shape */
+
+.battery-symbol {
+  border-radius: 3px;
+}
+
+/* Function name */
+
+.icon-title {
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+/* Live value underneath */
+
+.icon-value {
+  font-size: 12px;
+  margin-top: 3px;
+  color: #475569;
+}
+
+/* Hover feedback */
+
+.header-icon:hover {
+  background: #e8edf2;
+}
+
+/* Selected function */
+
+.header-icon.selected {
+  background: #dbe4ec;
+}
+
+/* Selected icon */
+
+.header-icon.selected .icon-symbol {
+  border-width: 3px;
+  border-color: #1f2937;
 }
 
 /* ============================================================
@@ -317,4 +471,64 @@ body {
 .main-content .details-section {
   margin: 0;
   min-width: 0;
+}
+
+/* SVG SYSTEM ICONS */
+
+.system-icon {
+  width: 38px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* RECTIFIER COMBINATION ICON */
+
+.rectifier-combo-icon {
+  position: relative;
+  width: 42px;
+  height: 42px;
+}
+
+/* AC symbol */
+.rectifier-ac-symbol {
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  left: 0;
+  top: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Slash */
+.rectifier-slash {
+  position: absolute;
+  width: 2px;
+  height: 30px;
+  background: currentColor;
+  left: 20px;
+  top: 6px;
+  transform: rotate(35deg);
+  transform-origin: center;
+}
+
+/* Rectifier symbol */
+.rectifier-unit-symbol {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  right: 0;
+  bottom: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }

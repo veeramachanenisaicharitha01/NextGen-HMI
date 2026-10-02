@@ -13,6 +13,9 @@ import { useState } from 'react'
 
 import './App.css'
 
+import Header from './components/Header'
+import PowerFlow from './components/PowerFlow'
+
 // ============================================================
 // SIMULATED SYSTEM DATA
 // ============================================================
@@ -36,76 +39,20 @@ const systemData = {
 
 function App() {
 
-  // ----------------------------------------------------------
   // SELECTED SECTION STATE
-  // ----------------------------------------------------------
 
   const [selectedSection, setSelectedSection] = useState('Overview')
   return (
-    // ========================================================
     // COMPLETE HMI SCREEN
-    // ========================================================
     <div className="hmi">
 
       {/* HMI Header */}
 
-      <header className="hmi-header">
-        <h1>NextGen Power</h1>
-        <p>System Overview</p>
-      </header>
-
-      {/* SYSTEM STATUS BAR */}
-
-      <div className="status-bar">
-        <div
-          className="status-card"
-          onClick={() => setSelectedSection('AC Source')}
-        >
-          <h3>AC Source</h3>
-          <p>{systemData.acVoltage} V</p>
-        </div>
-
-        <div
-          className="status-card"
-          onClick={() => setSelectedSection('Rectifiers')}
-        >
-          <h3>Rectifiers</h3>
-          <p>{systemData.rectifierStatus}</p>
-        </div>
-
-        <div
-          className="status-card"
-          onClick={() => setSelectedSection('Load')}
-        >
-          <h3>Load</h3>
-          <p>{systemData.loadCurrent} A</p>
-        </div>
-
-        <div
-          className="status-card"
-          onClick={() => setSelectedSection('Battery')}
-        >
-          <h3>Battery</h3>
-          <p>{systemData.batteryVoltage} V</p>
-        </div>
-
-        <div
-          className="status-card"
-          onClick={() => setSelectedSection('Temperature')}
-        >
-          <h3>Temperature</h3>
-          <p>{systemData.temperature} °C</p>
-        </div>
-
-        <div
-          className="status-card"
-          onClick={() => setSelectedSection('Active Alarms')}
-        >
-          <h3>Active Alarms</h3>
-          <p>{systemData.activeAlarms}</p>
-        </div>
-      </div>
-
+      <Header
+        systemData={systemData}
+        selectedSection={selectedSection}
+        setSelectedSection={setSelectedSection}
+      />
 
       {/* ======================================================
           MAIN CONTENT AREA
@@ -120,92 +67,7 @@ function App() {
 
         {/* SYSTEM POWER FLOW */}
 
-        <section className="power-section">
-
-          {/* Power-flow section title */}
-
-          <h2>System Power Flow</h2>
-
-          {/* Container holding the power-system components */}
-
-          <div className="system-diagram">
-
-            {/* Main horizontal power path */}
-            <div className="main-power-path">
-
-             {/* AC SOURCE */}
-              <div className="diagram-item">
-                <div className="diagram-icon ac-icon">
-                 AC
-                </div>
-
-                <div className="diagram-label">
-                  <strong>AC Source</strong>
-                  <span>{systemData.acVoltage} V AC</span>
-                </div>
-              </div>
-
-            {/* Connection from AC Source to Rectifiers */}
-              <div className="diagram-connection">
-                <div className="connection-line"></div>
-                <span className="connection-arrow">▶</span>
-              </div>
-
-              {/* RECTIFIERS */}
-              <div className="diagram-item">
-                <div className="diagram-icon rectifier-icon">
-                  REC
-                </div>
-
-                <div className="diagram-label">
-                  <strong>Rectifiers</strong>
-                  <span>{systemData.rectifierStatus}</span>
-                </div>
-              </div>
-
-              {/* Connection from Rectifiers to Load */}
-              <div className="diagram-connection battery-branch-area">
-                <div className="connection-line"></div>
-                <div className="branch-point"></div>
-                <div className="battery-branch-line"></div>
-                <span className="connection-arrow">▶</span>
-              </div>
-
-              {/* LOAD */}
-              <div className="diagram-item">
-               <div className="diagram-icon load-icon">
-                  LOAD
-              </div>
-
-              <div className="diagram-label">
-                <strong>Load</strong>
-                <span>{systemData.loadCurrent} A</span>
-              </div>
-            </div>
-
-          </div>
-
-
-            {/* BATTERY - positioned below the Rectifiers */}
-          <div className="battery-row">
-            <div className="diagram-item">
-              <div className="diagram-icon battery-icon">
-                BAT
-              </div>
-
-              <div className="diagram-label">
-                <strong>Battery</strong>
-                <span>{systemData.batteryVoltage} V DC</span>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        </section>
-
+        <PowerFlow systemData={systemData} />
 
         {/* DYNAMIC SYSTEM DETAILS PANEL */}
 
