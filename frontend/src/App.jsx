@@ -1,20 +1,22 @@
 // ============================================================
 // NEXTGEN POWER - HMI OVERVIEW
 // ============================================================
-// This file contains the main React user interface for the
-// NextGen Power HMI.
+// This file contains the main React user interface for the NextGen Power HMI.
 // ============================================================
-// Import React's useState function.
-// useState allows the HMI to remember which section the operator has selected.
 
+// Import React's useState function. (useState allows the HMI to remember which section the operator has selected.)
 import { useState } from 'react'
 
 // Import the CSS file that controls the appearance and layout of this HMI.
-
 import './App.css'
 
+// Import all the different components of the HMI.
 import Header from './components/Header'
 import PowerFlow from './components/PowerFlow'
+import DetailsPanel from './components/DetailsPanel'
+import GraphPanel from './components/GraphPanel'
+import GraphPage from './components/GraphPage'
+import AlarmsPage from './components/AlarmsPage'
 
 // ============================================================
 // SIMULATED SYSTEM DATA
@@ -39,139 +41,164 @@ const systemData = {
 
 function App() {
 
-  // SELECTED SECTION STATE
+  // Global HMI State
+  const [hmiState, setHmiState] = useState({
+    page: 'Overview',
+    overview: {
+      selectedEquipment: 'Overview'
+    },
+    graph: {
+      measurement: 'Battery Voltage',
+      timeRange: '24 Hours'
+    }
+  })
+  const [backHistory, setBackHistory] = useState([])
+  const [forwardHistory, setForwardHistory] = useState([])
+  const selectedPage = hmiState.page
+  const selectedEquipment = hmiState.overview.selectedEquipment
+  const selectedMeasurements = [hmiState.graph.measurement]
+  const xAxis = hmiState.graph.timeRange
+  const updateHmiState = (newState) => {
+    setBackHistory((history) => [
+      ...history,
+      hmiState
+    ])
+    setForwardHistory([])
+    setHmiState(newState)
+  }
+  const setSelectedPage = (newPage) => {
+    updateHmiState({
+      ...hmiState,
+      page: newPage
+    })
+  }
+  const setSelectedEquipment = (newEquipment) => {
+    updateHmiState({
+      ...hmiState,
+      overview: {
+        ...hmiState.overview,
+        selectedEquipment: newEquipment
+      }
+    })
+  }
+  const goToOverview = () => {
+    updateHmiState({
+      ...hmiState,
+      page: 'Overview',
+      overview: {
+        ...hmiState.overview,
+        selectedEquipment: 'Overview'
+      }
+    })
+  }
+  const setSelectedMeasurements = (newMeasurements) => {
+    updateHmiState({
+      ...hmiState,
+      graph: {
+        ...hmiState.graph,
+        measurement: newMeasurements[0]
+      }
+    })
+  }
+  const setXAxis = (newTimeRange) => {
+    updateHmiState({
+      ...hmiState,
+      graph: {
+        ...hmiState.graph,
+        timeRange: newTimeRange
+      }
+    })
+  }
+  const navigateToPage = (newPage) => {
+    if (newPage === hmiState.page) {
+      return
+    }
+    updateHmiState({
+      ...hmiState,
+      page: newPage
+    })
+  }
+  const goBack = () => {
+  if (backHistory.length === 0) {
+    return
+   }
+  const previousState =
+    backHistory[backHistory.length - 1]
+  setForwardHistory((history) => [
+    hmiState,
+    ...history
+  ])
+  setBackHistory((history) =>
+    history.slice(0, -1)
+  )
+  setHmiState(previousState)
+  }
+  const goForward = () => {
+  if (forwardHistory.length === 0) {
+    return
+    }
+  const nextState = forwardHistory[0]
+  setBackHistory((history) => [
+    ...history,
+    hmiState
+  ])
+  setForwardHistory((history) =>
+    history.slice(1)
+  )
+  setHmiState(nextState)
+}
 
-  const [selectedSection, setSelectedSection] = useState('Overview')
   return (
     // COMPLETE HMI SCREEN
     <div className="hmi">
 
       {/* HMI Header */}
-
       <Header
         systemData={systemData}
-        selectedSection={selectedSection}
-        setSelectedSection={setSelectedSection}
+        selectedPage={selectedPage}
+        setSelectedPage={setSelectedPage}
+        setSelectedEquipment={setSelectedEquipment}
+        navigateToPage={navigateToPage}
+        goToOverview={goToOverview}
+        goBack={goBack}
+        goForward={goForward}
+        canGoBack={backHistory.length > 0}
+        canGoForward={forwardHistory.length > 0}
       />
-
-      {/* ======================================================
-          MAIN CONTENT AREA
-          LEFT:
-          System Power Flow
-          RIGHT:
-          Details for whichever system section the operator
-          selects.
-         ====================================================== */}
-
-      <div className="main-content">
-
-        {/* SYSTEM POWER FLOW */}
-
-        <PowerFlow systemData={systemData} />
-
-        {/* DYNAMIC SYSTEM DETAILS PANEL */}
-
-        <section className="details-section">
-          <h2>{selectedSection} Details</h2>
-
-          {/* DEFAULT OVERVIEW */}
-
-          {selectedSection === 'Overview' && (
-            <div className="details-content">
-              <p>
-                Select a system section above to view more information.
-              </p>
-            </div>
-          )}
-
-          {selectedSection === 'AC Source' && (
-            <div className="details-content">
-              <p>
-                <strong>Input Voltage:</strong>{' '}
-                {systemData.acVoltage} V AC
-              </p>
-              <p>
-                <strong>Frequency:</strong> --
-              </p>
-              <p>
-                <strong>Status:</strong> --
-              </p>
-            </div>
-          )}
-
-          {selectedSection === 'Rectifiers' && (
-            <div className="details-content">
-              <p>
-                <strong>Status:</strong>{' '}
-                {systemData.rectifierStatus}
-              </p>
-              <p>
-                <strong>Output Voltage:</strong> --
-              </p>
-              <p>
-                <strong>Output Current:</strong> --
-              </p>
-            </div>
-          )}
-
-          {selectedSection === 'Load' && (
-            <div className="details-content">
-              <p>
-                <strong>Load Current:</strong>{' '}
-                {systemData.loadCurrent} A
-              </p>
-              <p>
-                <strong>Load Voltage:</strong> --
-              </p>
-              <p>
-                <strong>Load Power:</strong> --
-              </p>
-            </div>
-          )}
-
-          {selectedSection === 'Battery' && (
-            <div className="details-content">
-              <p>
-                <strong>Battery Voltage:</strong>{' '}
-                {systemData.batteryVoltage} V DC
-              </p>
-              <p>
-                <strong>Battery Current:</strong> --
-              </p>
-              <p>
-                <strong>Battery Status:</strong> --
-              </p>
-            </div>
-          )}
-
-          {selectedSection === 'Temperature' && (
-            <div className="details-content">
-              <p>
-                <strong>System Temperature:</strong>{' '}
-                {systemData.temperature} °C
-              </p>
-              <p>
-                <strong>High Temperature Alarm:</strong> --
-              </p>
-            </div>
-          )}
-
-          {selectedSection === 'Active Alarms' && (
-            <div className="details-content">
-              <p>
-                <strong>Active Alarms:</strong>{' '}
-                {systemData.activeAlarms}
-              </p>
-              <p>
-                <strong>Alarm Details:</strong>{' '}
-                No simulated alarms
-              </p>
-            </div>
-          )}
-        </section>
-
-      </div>
-      {/* End of main-content */}
+      {/* Overview Page */}
+      {selectedPage === 'Overview' && (
+        <div className="main-content">
+          <div className="left-column">
+          {/* SYSTEM POWER FLOW */}
+            <PowerFlow 
+              systemData={systemData}
+              selectedEquipment={selectedEquipment}
+              setSelectedEquipment={setSelectedEquipment}
+            />
+            <GraphPanel />
+          </div>
+          {/* DYNAMIC SYSTEM DETAILS PANEL */}
+          <DetailsPanel 
+            selectedEquipment={selectedEquipment}
+            systemData={systemData}
+          />
+        </div>
+      )}
+      
+      {/* Dedicated Graph Page */}
+      {selectedPage === 'Graph' && (
+        <GraphPage 
+          selectedMeasurements={selectedMeasurements}
+          setSelectedMeasurements={setSelectedMeasurements}
+          xAxis={xAxis}
+          setXAxis={setXAxis}
+          />
+      )}
+      
+      {/* Dedicated Alarm Page */}
+      {selectedPage === 'Alarms' && (
+        <AlarmsPage />
+      )}
 
     </div>
     // End of complete HMI screen

@@ -1,9 +1,18 @@
 function AlarmIcon() {
   return (
     <svg viewBox="0 0 48 48" className="system-icon">
-      <path d="M24 6 L44 40 H4 Z" />
-      <path d="M24 17 V28" />
-      <circle cx="24" cy="34" r="1.5" />
+      {/* Bell Body */}
+      <path 
+        d="
+          M12 34 
+          H36
+          L33 30
+          V20
+          C33 14 29 10 24 10
+          C19 10 15 14 15 20
+          V30 Z" />
+      <path d="M20 37 C21 41 27 41 28 37" />    {/* Bell Clapper */}
+      <path d="M22 10 C22 7 26 7 26 10" />      {/* Bell Topper */}
     </svg>
   )
 }

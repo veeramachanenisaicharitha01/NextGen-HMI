@@ -1,0 +1,38 @@
+/* ============================================================
+   NEXTGEN POWER HMI - GRAPH PAGE
+   ============================================================ */
+
+.graph-page {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* PAGE HEADING */
+.graph-page-heading {
+  margin-bottom: 15px;
+}
+.graph-page-heading h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* GRAPH PAGE LAYOUT */
+.graph-page-layout {
+  display: grid;
+  /* Graph gets most of the space */
+  grid-template-columns:
+    minmax(0, 3fr)
+    minmax(250px, 1fr);
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Prevent either column from overflowing */
+.graph-page-layout > * {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}

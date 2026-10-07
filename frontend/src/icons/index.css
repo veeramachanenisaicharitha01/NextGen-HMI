@@ -1,0 +1,27 @@
+/* ============================================================
+   NEXTGEN POWER HMI - GLOBAL STYLES
+   These styles apply to the entire React application rather than to one individual HMI component.
+   ============================================================ */
+
+/* Border-box makes element sizing easier to control. Padding and borders are included inside the element's specified width and height. */
+* {
+  box-sizing: border-box;
+}
+
+/* Ensure the HTML document, page body and React root container can use the complete browser/display area. */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100vh;
+}
+
+/* Default appearance for the entire HMI application. */
+body {
+  margin: 0;
+  font-family: 'Times New Roman', Times, serif;
+  background: #e8edf2;
+}

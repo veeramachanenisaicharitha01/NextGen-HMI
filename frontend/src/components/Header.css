@@ -1,0 +1,222 @@
+/* ============================================================
+   NEXTGEN POWER HMI - HEADER
+
+   Controls the appearance of the top navigation area.
+
+   The header contains:
+   - Newmar logo
+   - Main HMI navigation buttons
+   - User button
+   - User/location information
+   ============================================================ */
+
+
+/* MAIN HEADER CONTAINER */
+
+.hmi-header {
+  width: 100%;
+  min-height: 90px;
+  display: flex;
+  align-items: stretch;
+  background: #1f2937;
+  color: white;
+  border-bottom: 1px solid #94a3b8;
+}
+
+/* BRAND / LOGO AREA */
+
+.header-brand {
+  width: 210px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border-right: 1px solid #475569;
+}
+
+/* Keeps the Newmar logo inside the available header area. */
+.newmar-logo {
+  display: block;
+  max-width: 165px;
+  max-height: 60px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* HEADER NAVIGATION BUTTON AREA */
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 6px;
+}
+
+/* Common appearance for each HMI navigation button. */
+.header-button {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 4px;
+  background: #ffffff;
+  border: 1px solid #94a3b8;
+  border-radius: 5px;
+  color: #1f2937;
+  cursor: pointer;
+  font-family: inherit;
+  /* Prevents buttons from becoming smaller when space is limited. */
+  flex-shrink: 0;
+}
+
+/* Size of the SVG icon displayed inside a header button. */
+.header-button .system-icon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Text displayed underneath each navigation icon. */
+.header-button span {
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* Visual feedback when the operator moves over a button. */
+.header-button:hover {
+  background: #e8edf2;
+}
+
+/* Indicates which main HMI page is currently selected. */
+.header-button.selected {
+  background: #dbe4ec;
+  border: 2px solid #475569;
+}
+
+/* RECTIFIER COMBINATION ICON*/
+
+/* The rectifier icon is made from multiple visual elements: AC symbol + diagonal divider + rectifier symbol.*/
+.rectifier-combo-icon {
+  position: relative;
+  width: 42px;
+  height: 42px;
+}
+
+/* AC portion of the rectifier symbol. */
+.rectifier-ac-symbol {
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  left: 0;
+  top: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Diagonal divider between AC and rectifier symbols. */
+.rectifier-slash {
+  position: absolute;
+  width: 2px;
+  height: 30px;
+  background: currentColor;
+  left: 20px;
+  top: 6px;
+  transform: rotate(35deg);
+  transform-origin: center;
+}
+
+/* Rectifier portion of the combination symbol. */
+.rectifier-unit-symbol {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  right: 0;
+  bottom: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Slightly smaller rectifier combination icon when it is displayed inside the navigation header. */
+.header-button .rectifier-combo-icon {
+  position: relative;
+  width: 38px;
+  height: 38px;
+}
+.header-button .rectifier-ac-symbol {
+  width: 18px;
+  height: 18px;
+  left: 0;
+  top: 0;
+}
+.header-button .rectifier-slash {
+  width: 2px;
+  height: 28px;
+  left: 18px;
+  top: 5px;
+}
+.header-button .rectifier-unit-symbol {
+  width: 20px;
+  height: 20px;
+  right: 0;
+  bottom: 0;
+}
+
+/* USER AREA */
+
+/* Places the User button and user information on the right side of the header.*/
+.header-user {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  flex-shrink: 0;
+}
+.header-user .header-button {
+  flex-shrink: 0;
+}
+
+/* Displays the user information vertically */
+.user-information {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 3px;
+  min-width: 95px;
+  color: white;
+  white-space: nowrap;
+}
+.user-information > span {
+  display: block !important;
+  width: 100%;
+  text-align: left;
+}
+.user-information .user-name {
+  font-size: 12px;
+  font-weight: bold;
+}
+.user-information .user-location {
+  font-size: 10px;
+  font-weight: normal;
+}
+.user-information .user-role {
+  font-size: 10px;
+  font-weight: normal;
+}
+.user-information .user-datetime {
+  font-size: 10px;
+  font-weight: normal;
+}

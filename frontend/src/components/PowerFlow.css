@@ -1,0 +1,190 @@
+/* ============================================================
+   NEXTGEN POWER HMI - SYSTEM POWER FLOW
+   ============================================================ */
+/* POWER FLOW CONTAINER */
+
+.power-section {
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #00060c;
+  border-radius: 8px;
+  /* Margin is controlled by the main application layout, so this component does not need its own outside margin. */
+  margin: 0;
+  min-width: 0;
+}
+
+/* Section title: "General". */
+.power-section h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: left;
+  font-size: 30px;
+  padding: 0;
+}
+
+/* Area containing the complete power-flow diagram. */
+.system-diagram {
+  width: 100%;
+  padding: 10px 15px 15px;
+}
+
+/* MAIN POWER PATH */
+/* Places AC Source, Rectifiers and Load horizontally. */
+.main-power-path {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Represents one equipment item together with its label and current simulated system value. */
+.diagram-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Common container used around equipment SVG icons. */
+.diagram-icon,
+.temperature-icon {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #64748b;
+  border-radius: 8px;
+  background: #f4f6f8;
+}
+
+/* Equipment name and measurement/status underneath the icon. */
+.diagram-label {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 20px;
+}
+.diagram-label span {
+  margin-top: 3px;
+}
+
+/* CONNECTIONS BETWEEN EQUIPMENT */
+.diagram-connection {
+  position: relative;
+  width: 100px;
+  height: 72px;
+  flex-shrink: 0;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+/* Horizontal power-flow line. */
+.connection-line {
+  position: absolute;
+  left: 0;
+  right: 12px;
+  top: 50%;
+  height: 3px;
+  background: #64748b;
+  transform: translateY(-50%);
+}
+
+/* Arrow indicating the direction of the power path. */
+.connection-arrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* BATTERY BRANCH */
+.battery-branch-area {
+  position: relative;
+}
+
+/* Connection point where the battery branch meets the DC path. */
+.branch-point {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: #64748b;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+/* Vertical electrical connection running toward the battery. */
+.battery-branch-line {
+  position: absolute;
+  width: 3px;
+  height: 90px;
+  background: #64748b;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+/* LOWER SYSTEM ROW */ 
+.lower-system-row {
+  display: grid;
+  grid-template-columns: 72px 116px 72px 116px 72px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Positions Temperature underneath the AC Source area. */
+.temperature-position {
+  grid-column: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* Positions Battery underneath the connection between Rectifiers and Load. */
+.battery-position {
+  grid-column: 4;
+  display: flex;
+  justify-content: center;
+  transform: translateY(-20px);
+}
+
+/* EQUIPMENT-SPECIFIC SHAPES */
+.ac-icon {
+  border-radius: 50%;
+}
+.rectifier-icon {
+  border-radius: 8px;
+}
+.load-icon {
+  border-radius: 8px;
+}
+.battery-icon {
+  border-radius: 6px;
+}
+
+/* SELECTABLE EQUIPMENT */
+/* Power-flow equipment acts as a button. Selecting equipment changes the information displayed in the Secondary Area / Details Panel. */
+.equipment-button {
+  font-family: inherit;
+  color: #1f2937;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Operator mouse-hover feedback. */
+.equipment-button:hover {
+  background: #e8edf2;
+}
+
+/* Highlights the equipment currently selected by the operator. */
+.equipment-button.equipment-selected {
+  background: #dbe4ec;
+  border: 3px solid #475569;
+}

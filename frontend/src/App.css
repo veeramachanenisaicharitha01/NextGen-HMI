@@ -1,480 +1,38 @@
 /* ============================================================
-   NEXTGEN POWER HMI - MAIN STYLESHEET
-   This file controls the visual appearance of the HMI,
-   ============================================================ */
-/* ============================================================
-   GLOBAL SETTINGS
+   NEXTGEN POWER HMI - APPLICATION LAYOUT
+   This file contains styles that control the overall layout of the NextGen HMI.
    ============================================================ */
 
-/* Apply border-box sizing to every element.*/
-
-* {
-  box-sizing: border-box;
-}
-
-/*
-   BODY / PAGE SETTINGS
-   Removes the browser's default margin and defines the default font and background color for the application.
-*/
-
-body {
-  margin: 0;
-  font-family: 'Times New Roman', Times, serif;    /*Defualt font for the application*/
-  background: #e8edf2;                           /*Default background color for the application*/
-}
+/* HMI APPLICATION CONTAINER */
 
 .hmi {
-  width: 100%;            /*100% of the browser/display width*/
-  min-height: 100vh;       /*100% of the browser/display height*/
+  width: 100%;
+  min-height: 100vh;
   background: #ffffff;
 }
 
-/* ============================================================
-   HMI HEADER
-   ============================================================ */
-
-.hmi-header {
-  width: 100%;
-  min-height: 90px;
-  display: flex;
-  align-items: stretch;
-  background: #1f2937;
-  color: white;
-  padding: 0;
-}
-
-/* PRODUCT NAME - LEFT SIDE */
-
-.header-brand {
-  width: 210px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 20px;
-  border-right: 1px solid #00040a;
-}
-
-.header-brand h1 {
-  margin: 0;
-  font-size: 22px;
-}
-
-.header-brand p {
-  margin: 4px 0 0;
-  font-size: 12px;
-  color: #cbd5e1;
-}
-
-/* ACTIVE AREA - RIGHT SIDE OF HEADER */
-
-.active-area {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  padding: 0;
-  background: transparent;
-}
-
-/* INDIVIDUAL HEADER FUNCTION */
-
-.header-icon {
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 8px;
-  border: none;
-  border-right: 1px solid #00050c;
-  background: transparent;
-  color: rgb(8, 0, 0);
-  cursor: pointer;
-  font-family: inherit;
-}
-
-/* ICON */
-
-.icon-symbol {
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #94a3b8;
-  border-radius: 5px;
-  font-size: 11px;
-  font-weight: bold;
-  background: #334155;
-  color: rgb(8, 0, 0);
-}
-
-.ac-symbol {
-  border-radius: 50%;
-  font-size: 20px;
-}
-
-/* TEXT NEXT TO ICON */
-
-.header-icon-text {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-.icon-title {
-  font-size: 12px;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-.icon-value {
-  margin-top: 3px;
-  font-size: 11px;
-  color: #cbd5e1;
-  white-space: nowrap;
-}
-
-/* HOVER */
-
-.header-icon:hover {
-  background: #334155;
-}
-
-/* SELECTED FUNCTION */
-
-.header-icon.selected {
-  background: #475569;
-}
-
-.header-icon.selected .icon-symbol {
-  background: #f8fafc;
-  color: #1f2937;
-  border-color: #f8fafc;
-}
-
-/* SYSTEM STATUS BAR */
-
-.active-area {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  background: #f4f6f8;
-  border-bottom: 1px solid #cbd5e1;
-  padding: 10px 20px;
-}
-
-/* Individual selectable function */
-
-.header-icon {
-  border: none;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 105px;
-  cursor: pointer;
-  font-family: inherit;
-  border-right: 1px solid #d6dce3;
-}
-
-/* Remove line from last icon */
-
-.header-icon:last-child {
-  border-right: none;
-}
-
-/* Icon graphic */
-
-.icon-symbol {
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #64748b;
-  border-radius: 6px;
-  background: white;
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-/* AC source is circular like the electrical symbol */
-
-.ac-symbol {
-  border-radius: 50%;
-  font-size: 24px;
-}
-
-/* Battery shape */
-
-.battery-symbol {
-  border-radius: 3px;
-}
-
-/* Function name */
-
-.icon-title {
-  font-size: 13px;
-  font-weight: bold;
-  margin-top: 2px;
-}
-
-/* Live value underneath */
-
-.icon-value {
-  font-size: 12px;
-  margin-top: 3px;
-  color: #475569;
-}
-
-/* Hover feedback */
-
-.header-icon:hover {
-  background: #e8edf2;
-}
-
-/* Selected function */
-
-.header-icon.selected {
-  background: #dbe4ec;
-}
-
-/* Selected icon */
-
-.header-icon.selected .icon-symbol {
-  border-width: 3px;
-  border-color: #1f2937;
-}
-
-/* ============================================================
-   SYSTEM POWER-FLOW SECTION
-   ============================================================ */
-
-/* Main container for the power-flow visualization */
-
-.power-section {
-  margin: 0 15px 15px;
-  padding: 20px;
-  background: #ffffff;
-  border: 1px solid #00060c;
-  border-radius: 8px;
-}
-
-/* "System power flow" section tile */
-
-.power-section h2 {
-  margin-top: 0;
-  text-align: center;
-  font-size: 20px;
-}
-
-/* Power flow layout */
-
-.system-diagram {
-  width: 100%;
-  padding: 25px 15px;
-}
-
-/* Main AC -> Rectifier -> Load path */
-
-.main-power-path {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-}
-
-/* One component in the system diagram */
-
-.diagram-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-
-/* Square representing the equipment/icon */
-
-.diagram-icon {
-  width: 72px;
-  height: 72px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #64748b;
-  border-radius: 8px;
-  background: #f4f6f8;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-
-/* Text underneath each icon */
-
-.diagram-label {
-  margin-top: 8px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  font-size: 13px;
-}
-
-.diagram-label span {
-  margin-top: 3px;
-}
-
-/* Horizontal connection between components */
-
-.diagram-connection {
-  position: relative;
-  width: 100px;
-  height: 72px;
-  flex-shrink: 0;
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-.connection-line {
-  position: absolute;
-  left: 0;
-  right: 12px;
-  top: 50%;
-  height: 3px;
-  background: #64748b;
-  transform: translateY(-50%);
-}
-
-.connection-arrow {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  line-height: 1;
-  font-size: 13px;
-  color: #64748b;
-}
-
-/* Battery Branch */
-
-.battery-branch-area {
-  position: relative;
-}
-
-/* Small connection point on the DC line */
-
-.branch-point {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  background: #64748b;
-  border-radius: 50%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-
-/* Vertical line going from DC line toward Battery */
-
-.battery-branch-line {
-  position: absolute;
-  width: 3px;
-  height: 90px;
-  background: #64748b;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-}
-
-/* Battery Position */
-
-.battery-row {
-  display: flex;
-  justify-content: center;
-  margin-top: 35px;
-  padding-left: 190px;
-}
-
-/* Individual equipment types */
-
-.ac-icon {
-  border-radius: 50%;
-}
-
-.rectifier-icon {
-  border-radius: 8px;
-}
-
-.load-icon {
-  border-radius: 8px;
-}
-
-.battery-icon {
-  border-radius: 6px;
-}
-
-/* Indicates that the system status cards are clickable */
-
-.status-card {
-  cursor: pointer;
-}
-
-/* ============================================================
-   SYSTEM DETAILS PANEL
-   Displays additional information for whichever system section the operator selects.
-   ============================================================ */
-
-.details-section {
-  margin: 0 15px 15px;
-  padding: 20px;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-}
-
-.details-section h2 {
-  margin-top: 0;
-  font-size: 20px;
-}
-
-.details-content {
-  background: #f4f6f8;
-  border-radius: 6px;
-  padding: 15px;
-}
-
-.details-content p {
-  margin: 8px 0;
-  font-size: 16px;
-}
+/* MAIN CONTENT AREA */
 
 .main-content {
   display: grid;
+  /* Left side receives approximately 2/3 of the available space. */
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 15px;
-  padding: 0 15px 15px;
+  gap: 20px;
+  padding: 20px;
   width: 100%;
+  box-sizing: border-box;
+  align-items: start;
 }
 
-.main-content .power-section {
-  margin: 0;
+/* LEFT COLUMN */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   min-width: 0;
 }
 
-.main-content .details-section {
-  margin: 0;
-  min-width: 0;
-}
-
-/* SVG SYSTEM ICONS */
-
+/* SHARED SVG SYSTEM ICONS - These styles are used by icons in multiple components. They must remain globally available. */
 .system-icon {
   width: 38px;
   height: 30px;
@@ -485,15 +43,13 @@ body {
   stroke-linejoin: round;
 }
 
-/* RECTIFIER COMBINATION ICON */
-
+/* SHARED RECTIFIER COMBINATION ICON */
 .rectifier-combo-icon {
   position: relative;
   width: 42px;
   height: 42px;
 }
-
-/* AC symbol */
+/* AC portion of the rectifier icon */
 .rectifier-ac-symbol {
   position: absolute;
   width: 21px;
@@ -507,7 +63,7 @@ body {
   stroke-linejoin: round;
 }
 
-/* Slash */
+/* Diagonal divider */
 .rectifier-slash {
   position: absolute;
   width: 2px;
@@ -519,7 +75,7 @@ body {
   transform-origin: center;
 }
 
-/* Rectifier symbol */
+/* Rectifier portion */
 .rectifier-unit-symbol {
   position: absolute;
   width: 23px;

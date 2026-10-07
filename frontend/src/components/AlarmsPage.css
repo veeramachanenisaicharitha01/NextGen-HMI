@@ -1,0 +1,123 @@
+/* ============================================================
+   NEXTGEN POWER HMI - ALARMS PAGE
+   ============================================================ */
+
+
+/* COMPLETE ALARMS PAGE */
+
+.alarms-page {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+/* PAGE TITLE */
+
+.alarms-page-heading {
+  margin-bottom: 15px;
+}
+
+.alarms-page-heading h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+
+/* ACTIVE ALARMS PANEL */
+
+.alarms-page-content {
+  width: 100%;
+  padding: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+
+  box-sizing: border-box;
+}
+
+
+/* ACTIVE ALARMS TITLE */
+
+.alarms-page-content h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+
+/* ============================================================
+   ALARMS TABLE
+   ============================================================ */
+
+.alarms-table {
+  width: 100%;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+
+  overflow: hidden;
+  background: #ffffff;
+}
+
+
+/* TABLE HEADER */
+
+.alarms-table-header {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    2fr
+    1fr
+    1fr;
+
+  align-items: center;
+
+  padding: 12px 15px;
+
+  background: #e2e8f0;
+
+  border-bottom: 1px solid #cbd5e1;
+
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+/* ALARM ROW */
+
+.alarms-table-row {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    2fr
+    1fr
+    1fr;
+
+  align-items: center;
+
+  padding: 14px 15px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  font-size: 18px;
+}
+
+
+/* REMOVE BORDER FROM LAST ROW */
+
+.alarms-table-row:last-child {
+  border-bottom: none;
+}
+
+
+/* PREVENT TEXT OVERFLOW */
+
+.alarms-table-header span,
+.alarms-table-row span {
+  min-width: 0;
+}

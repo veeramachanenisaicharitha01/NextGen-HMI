@@ -13,10 +13,8 @@ function RectifierIcon() {
              C28 34, 34 34, 38 24"
         />
       </svg>
-
       {/* Slash between the two symbols */}
       <span className="rectifier-slash"></span>
-
       {/* Rectifier symbol - lower right */}
       <svg
         viewBox="0 0 48 48"

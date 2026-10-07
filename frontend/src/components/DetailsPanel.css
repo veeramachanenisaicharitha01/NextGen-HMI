@@ -1,0 +1,100 @@
+/* =========================================================
+   DETAILS PANEL
+   Right-side information panel on the Overview page
+   ========================================================= */
+
+.details-section {
+  margin: 0;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  min-width: 0;
+}
+
+/* DETAILS PANEL TITLE */
+.details-section h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+
+/* DETAILS CONTENT AREA - Used for ControlGate and equipment information */
+.details-content {
+  padding: 5px;
+  background: #f4f6f8;
+  border-radius: 6px;
+}
+
+/* Equipment information text */
+.details-content p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+/* CONTROLGATE DISTRIBUTION TABLE */
+.distribution-table {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* CONTROLGATE TABLE HEADER */
+.distribution-header {
+  display: grid;
+  grid-template-columns:
+    1fr
+    0.8fr
+    0.8fr;
+  align-items: center;
+  padding: 10px 12px;
+  background: #e2e8f0;
+  border-bottom: 1px solid #cbd5e1;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* CONTROLGATE TABLE ROWS */
+.distribution-row {
+  display: grid;
+  grid-template-columns:
+    1fr
+    0.8fr
+    0.8fr;
+  align-items: center;
+  padding: 10px 12px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 15px;
+}
+
+/* Remove border from final row */
+.distribution-row:last-child {
+  border-bottom: none;
+}
+
+/* KEEP ALL TABLE VALUES ALIGNED */
+.distribution-header span,
+.distribution-row span {
+  min-width: 0;
+}
+
+/* Status column */
+.distribution-header span:nth-child(2),
+.distribution-row span:nth-child(2) {
+  text-align: center;
+}
+
+/* Current column */
+.distribution-header span:nth-child(3),
+.distribution-row span:nth-child(3) {
+  text-align: right;
+}
+
+/* WHEN DETAILS PANEL IS INSIDE MAIN OVERVIEW GRID */
+.main-content .details-section {
+  margin: 0;
+  min-width: 0;
+}

@@ -1,0 +1,109 @@
+/* ============================================================
+   NEXTGEN POWER HMI - SYSTEM GRAPH
+   The current graph uses voltage and current data simulated by the NextGen backend.
+   ============================================================ */
+
+/* GRAPH CONTAINER */
+.graph-section {
+  width: 100%;
+  min-width: 0;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #00060c;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Places the graph title and legend on the same row. */
+.graph-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.graph-header h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+/* Displays labels for the graph measurements. */
+.graph-legend {
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* SVG GRAPH */
+
+/* Container surrounding the SVG graph. */
+.graph-container {
+  width: 100%;
+  max-width: none;
+  margin-top: 15px;
+  padding: 10px 15px 25px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* SVG used to draw the graph lines and axes. */
+.system-graph {
+  display: block;
+  width: 100%;
+  height: 220px;
+  overflow: visible;
+}
+
+/* Horizontal graph grid lines. */
+.system-graph line {
+  stroke: #d1d5db;
+  stroke-width: 1;
+}
+
+/* X and Y graph axes. */
+.system-graph .graph-axis {
+  stroke: #475569;
+  stroke-width: 2;
+}
+
+/* Solid line representing system voltage. */
+.voltage-line {
+  fill: none;
+  stroke: #1f2937;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* Dashed line representing system current. */
+.current-line {
+  fill: none;
+  stroke: #64748b;
+  stroke-width: 3;
+  stroke-dasharray: 7 5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* GRAPH TIME LABELS */
+/* Displays timestamps underneath the graph. */
+.graph-time-labels {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 7%;
+  padding-right: 3%;
+  margin-top: 3px;
+}
+
+.graph-time-labels span {
+  font-size: 11px;
+  color: #475569;
+}
+
+/* Prevent HMI connection-line styles from affecting SVG graph lines */
+.system-graph line {
+  position: static;
+  background: none;
+  transform: none;
+}

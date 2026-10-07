@@ -1,147 +1,243 @@
-import ACSourceIcon from '../icons/ACSourceIcon'
-import RectifierIcon from '../icons/RectifierIcon'
-import LoadIcon from '../icons/LoadIcon'
-import BatteryIcon from '../icons/BatteryIcon'
-import TemperatureIcon from '../icons/TemperatureIcon'
+import './Header.css'
+
+import OverviewIcon from '../icons/OverviewIcon'
+import GraphIcon from '../icons/GraphIcon'
 import AlarmIcon from '../icons/AlarmIcon'
+import SetupIcon from '../icons/SetupIcon'
+import ChargeIcon from '../icons/ChargeIcon'
+import DataIcon from '../icons/DataIcon'
+import InfoIcon from '../icons/InfoIcon'
+import HelpIcon from '../icons/HelpIcon'
+import UserIcon from '../icons/UserIcon'
+import BackIcon from '../icons/BackIcon'
+import ForwardIcon from '../icons/ForwardIcon'
+import UndoIcon from '../icons/UndoIcon'
+import SaveIcon from '../icons/SaveIcon'
+
+import newmarLogo from '../assets/newmar-logo.png'
 
 
 function Header({
-  systemData,
-  selectedSection,
-  setSelectedSection
+  selectedPage,
+  setSelectedPage,
+  setSelectedEquipment,
+  navigateToPage,
+  goToOverview,
+  goBack,
+  goForward,
+  canGoBack,
+  canGoForward
 }) {
+
   return (
     <header className="hmi-header">
 
-      {/* PRODUCT NAME */}
+      {/* =====================================================
+          PRODUCT LOGO
+          ===================================================== */}
+
       <div className="header-brand">
-        <h1>NextGen Power</h1>
-        <p>System Overview</p>
+        <img
+          src={newmarLogo}
+          alt="Newmar"
+          className="newmar-logo"
+        />
       </div>
 
 
-      {/* ACTIVE AREA */}
-      <div className="active-area">
+      {/* =====================================================
+          HEADER NAVIGATION BUTTONS
+          ===================================================== */}
 
-        {/* AC SOURCE */}
+      <div className="header-buttons">
+
+        {/* -----------------------------------------------------
+            OVERVIEW BUTTON
+
+            This button is ALWAYS visible.
+            ----------------------------------------------------- */}
+
         <button
-          className={`header-icon ${
-            selectedSection === 'AC Source' ? 'selected' : ''
+          className={`header-button ${
+            selectedPage === 'Overview' ? 'selected' : ''
           }`}
-          onClick={() => setSelectedSection('AC Source')}
+          onClick={goToOverview}
         >
-          <div className="icon-symbol">
-            <ACSourceIcon />
-          </div>
-
-          <div className="header-icon-text">
-            <span className="icon-title">AC Source</span>
-            <span className="icon-value">
-              {systemData.acVoltage} V
-            </span>
-          </div>
+          <OverviewIcon />
+          <span>Overview</span>
         </button>
 
 
-        {/* RECTIFIERS */}
-        <button
-          className={`header-icon ${
-            selectedSection === 'Rectifiers' ? 'selected' : ''
-          }`}
-          onClick={() => setSelectedSection('Rectifiers')}
-        >
-          <div className="icon-symbol">
-            <RectifierIcon />
-          </div>
+        {/* =====================================================
+            DEFAULT OVERVIEW MENU
 
-          <div className="header-icon-text">
-            <span className="icon-title">Rectifiers</span>
-            <span className="icon-value">
-              {systemData.rectifierStatus}
-            </span>
-          </div>
+            These buttons are displayed only while the operator
+            is on the Overview page.
+            ===================================================== */}
+
+        {selectedPage === 'Overview' && (
+          <>
+            <button
+              className="header-button"
+              onClick={() => navigateToPage('Graph')}
+            >
+              <GraphIcon />
+              <span>Graph</span>
+            </button>
+
+
+            <button
+              className="header-button"
+              onClick={() => navigateToPage('Alarms')}
+            >
+              <AlarmIcon />
+              <span>Alarms</span>
+            </button>
+
+
+            <button
+              className="header-button"
+              onClick={() => navigateToPage('Setup')}
+            >
+              <SetupIcon />
+              <span>Setup</span>
+            </button>
+
+
+            <button
+              className="header-button"
+              onClick={() => navigateToPage('Charge')}
+            >
+              <ChargeIcon />
+              <span>Charge</span>
+            </button>
+
+
+            <button
+              className="header-button"
+              onClick={() => navigateToPage('Data')}
+            >
+              <DataIcon />
+              <span>Data</span>
+            </button>
+
+
+            <button
+              className="header-button"
+              onClick={() => navigateToPage('Info')}
+            >
+              <InfoIcon />
+              <span>Info</span>
+            </button>
+
+
+            <button
+              className="header-button"
+              onClick={() => navigateToPage('Help')}
+            >
+              <HelpIcon />
+              <span>Help</span>
+            </button>
+          </>
+        )}
+
+
+        {/* =====================================================
+            SECONDARY PAGE MENU
+
+            When the operator leaves Overview, the normal menu
+            is replaced with Back, Forward, Undo and Save.
+
+            Functionality will be added later.
+            ===================================================== */}
+
+        {selectedPage !== 'Overview' && (
+          <>
+            <button 
+              className="header-button"
+              onClick={goBack}
+              disabled={!canGoBack}
+            >
+              <BackIcon />
+              <span>Back</span>
+            </button>
+
+            <button 
+              className="header-button"
+              onClick={goForward}
+              disabled={!canGoForward}
+            >
+              <ForwardIcon />
+              <span>Forward</span>
+            </button>
+
+            <button 
+              className="header-button"
+              disabled
+            >
+              <UndoIcon />
+              <span>Undo</span>
+            </button>
+
+            <button 
+              className="header-button"
+              disabled
+            >
+              <SaveIcon />
+              <span>Save</span>
+            </button>
+          </>
+        )}
+
+      </div>
+
+
+      {/* =====================================================
+          USER AREA
+
+          This remains visible on every page.
+          ===================================================== */}
+
+      <div className="header-user">
+
+        <button
+          className={`header-button ${
+            selectedPage === 'User' ? 'selected' : ''
+          }`}
+          onClick={() => setSelectedPage('User')}
+        >
+          <UserIcon />
+          <span>User</span>
         </button>
 
 
-        {/* LOAD */}
-        <button
-          className={`header-icon ${
-            selectedSection === 'Load' ? 'selected' : ''
-          }`}
-          onClick={() => setSelectedSection('Load')}
+        {/* USER DETAILS */}
+
+        <div
+          className="user-information"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            gap: '3px',
+            color: 'white',
+          }}
         >
-          <div className="icon-symbol">
-            <LoadIcon />
-          </div>
+          <span className="user-name">MCE</span>
 
-          <div className="header-icon-text">
-            <span className="icon-title">Load</span>
-            <span className="icon-value">
-              {systemData.loadCurrent} A
-            </span>
-          </div>
-        </button>
+          <span className="user-location">
+            Costa Mesa
+          </span>
 
+          <span className="user-role">
+            Admin
+          </span>
 
-        {/* BATTERY */}
-        <button
-          className={`header-icon ${
-            selectedSection === 'Battery' ? 'selected' : ''
-          }`}
-          onClick={() => setSelectedSection('Battery')}
-        >
-          <div className="icon-symbol">
-            <BatteryIcon />
-          </div>
-
-          <div className="header-icon-text">
-            <span className="icon-title">Battery</span>
-            <span className="icon-value">
-              {systemData.batteryVoltage} V
-            </span>
-          </div>
-        </button>
-
-
-        {/* TEMPERATURE */}
-        <button
-          className={`header-icon ${
-            selectedSection === 'Temperature' ? 'selected' : ''
-          }`}
-          onClick={() => setSelectedSection('Temperature')}
-        >
-          <div className="icon-symbol">
-            <TemperatureIcon />
-          </div>
-
-          <div className="header-icon-text">
-            <span className="icon-title">Temperature</span>
-            <span className="icon-value">
-              {systemData.temperature} °C
-            </span>
-          </div>
-        </button>
-
-
-        {/* ALARMS */}
-        <button
-          className={`header-icon ${
-            selectedSection === 'Active Alarms' ? 'selected' : ''
-          }`}
-          onClick={() => setSelectedSection('Active Alarms')}
-        >
-          <div className="icon-symbol">
-            <AlarmIcon />
-          </div>
-
-          <div className="header-icon-text">
-            <span className="icon-title">Alarms</span>
-            <span className="icon-value">
-              {systemData.activeAlarms}
-            </span>
-          </div>
-        </button>
+          <span className="user-datetime">
+            10/02/2026 4:15pm
+          </span>
+        </div>
 
       </div>
 

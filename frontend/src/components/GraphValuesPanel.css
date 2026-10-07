@@ -1,0 +1,46 @@
+/* ============================================================
+   NEXTGEN POWER HMI - GRAPH VALUES PANEL - Displays the current values for measurements that are currently selected on the detailed graph.
+   ============================================================ */
+
+.graph-values-panel {
+  width: 100%;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+.graph-values-panel h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 30px;
+}
+
+/* INDIVIDUAL DISPLAYED VALUE */
+.displayed-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+.displayed-value:last-child {
+  border-bottom: none;
+}
+.displayed-value-name {
+  font-size: 20px;
+}
+.displayed-value-number {
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+/* NOTHING SELECTED */
+.no-graph-values {
+  margin: 0;
+  padding: 15px;
+  background: #f4f6f8;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #64748b;
+}
