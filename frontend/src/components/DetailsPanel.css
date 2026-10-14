@@ -98,3 +98,8 @@
   margin: 0;
   min-width: 0;
 }
+
+/* Position of the graph Control */
+.graph-controls {
+  margin-top: 100px;
+}

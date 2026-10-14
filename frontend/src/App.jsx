@@ -15,6 +15,7 @@ import Header from './components/Header'
 import PowerFlow from './components/PowerFlow'
 import DetailsPanel from './components/DetailsPanel'
 import GraphPanel from './components/GraphPanel'
+import GraphControls from  './components/GraphControls'
 import GraphPage from './components/GraphPage'
 import AlarmsPage from './components/AlarmsPage'
 
@@ -45,10 +46,17 @@ function App() {
   const [hmiState, setHmiState] = useState({
     page: 'Overview',
     overview: {
-      selectedEquipment: 'Overview'
+      selectedEquipment: 'Overview',
+      // All six measurements selected by default
+      measurements: ['Battery Current', 'Battery Voltage'], 
+      // Default graph time Range
+      timeRange: "24 Hours"
     },
     graph: {
-      measurement: 'Battery Voltage',
+      //Measurements configured through settings
+      configuredMeasurements: ['Battery Current', 'Battery Voltage'],
+      //Measurements currently visible on the graph
+      measurements: ['Battery Current', 'Battery Voltage'],
       timeRange: '24 Hours'
     }
   })
@@ -56,8 +64,11 @@ function App() {
   const [forwardHistory, setForwardHistory] = useState([])
   const selectedPage = hmiState.page
   const selectedEquipment = hmiState.overview.selectedEquipment
-  const selectedMeasurements = [hmiState.graph.measurement]
+  const selectedMeasurements = hmiState.graph.measurements
+  const configuredMeasurements = hmiState.graph.configuredMeasurements
   const xAxis = hmiState.graph.timeRange
+  const overviewMeasurements = hmiState.overview.measurements
+  const overviewTimeRange = hmiState.overview.timeRange
   const updateHmiState = (newState) => {
     setBackHistory((history) => [
       ...history,
@@ -81,6 +92,24 @@ function App() {
       }
     })
   }
+  const setOverviewMeasurements = (newMeasurements) => {
+    updateHmiState({
+      ...hmiState,
+      overview: {
+        ...hmiState.overview,
+        measurements: newMeasurements
+      }
+    })
+  }
+  const setOverviewTimeRange = (newTimeRange) => {
+    updateHmiState({
+      ...hmiState,
+      overview: {
+        ...hmiState.overview,
+        timeRange: newTimeRange
+      }
+    })
+  }
   const goToOverview = () => {
     updateHmiState({
       ...hmiState,
@@ -96,7 +125,17 @@ function App() {
       ...hmiState,
       graph: {
         ...hmiState.graph,
-        measurement: newMeasurements[0]
+        measurements: newMeasurements
+      }
+    })
+  }
+  const saveConfiguredMeasurements = (newMeasurements) => {
+    updateHmiState({
+      ...hmiState,
+      graph: {
+        ...hmiState.graph,
+        configuredMeasurements: newMeasurements,
+        measurements: newMeasurements
       }
     })
   }
@@ -168,26 +207,44 @@ function App() {
       {/* Overview Page */}
       {selectedPage === 'Overview' && (
         <div className="main-content">
-          <div className="left-column">
+          <div className="overview-power-flow">
           {/* SYSTEM POWER FLOW */}
             <PowerFlow 
               systemData={systemData}
               selectedEquipment={selectedEquipment}
               setSelectedEquipment={setSelectedEquipment}
             />
-            <GraphPanel />
           </div>
-          {/* DYNAMIC SYSTEM DETAILS PANEL */}
-          <DetailsPanel 
-            selectedEquipment={selectedEquipment}
-            systemData={systemData}
-          />
+          <div className='overview-details'>
+            <DetailsPanel 
+              selectedEquipment={selectedEquipment}
+              systemData={systemData}
+            />
+          </div>
+          <div className='overview-activity'>
+            <GraphPanel 
+              selectedMeasurements={overviewMeasurements}
+              setSelectedMeasurements={setOverviewMeasurements}
+              timeRange={overviewTimeRange}
+              setTimeRange={setOverviewTimeRange}
+            />
+          </div>
+          <div className='overview-graph-controls'>
+            <GraphControls 
+              selectedMeasurements={overviewMeasurements}
+              setSelectedMeasurements={setOverviewMeasurements}
+              timeRange={overviewTimeRange}
+              setTimeRange={setOverviewTimeRange}
+            />
+          </div>
         </div>
       )}
       
       {/* Dedicated Graph Page */}
       {selectedPage === 'Graph' && (
-        <GraphPage 
+        <GraphPage
+          configuredMeasurements={configuredMeasurements}
+          saveConfiguredMeasurements={saveConfiguredMeasurements} 
           selectedMeasurements={selectedMeasurements}
           setSelectedMeasurements={setSelectedMeasurements}
           xAxis={xAxis}

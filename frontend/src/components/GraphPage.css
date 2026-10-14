@@ -14,7 +14,7 @@
 }
 .graph-page-heading h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: 30px;
 }
 
 /* GRAPH PAGE LAYOUT */
@@ -35,4 +35,181 @@
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
+}
+
+/* Y-axis measurement options */
+.graph-page-y-controls {
+  padding: 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  margin-bottom: 20px;
+}
+.graph-measurement-option {
+  margin-top: 12px;
+}
+.graph-measurement-option label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.graph-measurement-option input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.graph-line-color {
+  width: 25px;
+  height: 4px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* Y-axis header with Settings button */
+.graph-y-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.graph-y-header h3 {
+  margin: 0;
+}
+
+/* Settings button */
+.graph-y-settings-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 36px;
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #334155;
+  font-size: 22px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.graph-y-settings-button:hover {
+  background-color: #dbeafe;
+  border-color: #2563eb;
+  color: #2563eb;
+}
+.graph-y-settings-button:active {
+  background-color: #bfdbfe;
+}
+
+/* Temporary editing-mode indicator */
+.graph-y-edit-message {
+  margin-top: 12px;
+  padding: 10px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #334155;
+}
+
+/* Container for measurement dropdowns */
+.graph-y-edit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* Individual measurement dropdown */
+.graph-y-edit-select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: white;
+  color: #334155;
+  font-size: 13px;
+}
+
+/* Each dropdown and remove button share one row */
+.graph-y-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.graph-y-edit-row .graph-y-edit-select {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Remove button */
+.graph-y-remove-button {
+  flex-shrink: 0;
+  width: 32px;
+  height: 34px;
+  border: none;
+  border-radius: 6px;
+  background-color: #dc2626;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+.graph-y-remove-button:hover {
+  background-color: #b91c1c;
+}
+
+/* Add button */
+.graph-y-add-button {
+  padding: 9px 12px;
+  border: 1px dashed #2563eb;
+  border-radius: 6px;
+  background-color: #eff6ff;
+  color: #2563eb;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+}
+.graph-y-add-button:hover {
+  background-color: #dbeafe;
+}
+
+/* Save Measurements button */
+.graph-y-save-button {
+  width: 100%;
+  min-height: 42px;
+  padding: 11px 18px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.graph-y-save-button:hover {
+  background-color: #1d4ed8;
+}
+.graph-y-save-button:active {
+  background-color: #1e40af;
+}
+
+/* X-Axis Time Range */
+.graph-page-x-controls {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 16px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  width: 100%;
+}
+.graph-page-x-controls h2 {
+  margin: 0 0 14px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #010914;
 }

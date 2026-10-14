@@ -17,6 +17,9 @@
   display: grid;
   /* Left side receives approximately 2/3 of the available space. */
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  grid-template-areas: 
+    "powerflow details" 
+    "activity controls";
   gap: 20px;
   padding: 20px;
   width: 100%;
@@ -24,8 +27,34 @@
   align-items: start;
 }
 
+/* Position each section in the grid */
+.overview-power-flow {
+  grid-area: powerflow;
+  min-width: 0;
+}
+.overview-details {
+  grid-area: details;
+  min-width: 0;
+}
+.overview-activity {
+  grid-area: activity;
+  min-width: 0;
+}
+.overview-graph-controls {
+  grid-area: controls;
+  min-width: 0;
+}
+
 /* LEFT COLUMN */
 .left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* RIGHT COLUMN */
+.right-column {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -88,3 +117,4 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
