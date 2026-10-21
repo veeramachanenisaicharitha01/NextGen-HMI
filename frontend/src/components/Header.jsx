@@ -26,16 +26,16 @@ function Header({
   goBack,
   goForward,
   canGoBack,
-  canGoForward
+  canGoForward,
+  onUndo,
+  onSave,
+  canUndo = false,
+  canSave = false
 }) {
 
   return (
     <header className="hmi-header">
-
-      {/* =====================================================
-          PRODUCT LOGO
-          ===================================================== */}
-
+      {/* PRODUCT LOGO */}
       <div className="header-brand">
         <img
           src={newmarLogo}
@@ -44,19 +44,9 @@ function Header({
         />
       </div>
 
-
-      {/* =====================================================
-          HEADER NAVIGATION BUTTONS
-          ===================================================== */}
-
+      {/* HEADER NAVIGATION BUTTONS */}
       <div className="header-buttons">
-
-        {/* -----------------------------------------------------
-            OVERVIEW BUTTON
-
-            This button is ALWAYS visible.
-            ----------------------------------------------------- */}
-
+        {/* OVERVIEW BUTTON */}
         <button
           className={`header-button ${
             selectedPage === 'Overview' ? 'selected' : ''
@@ -67,14 +57,7 @@ function Header({
           <span>Overview</span>
         </button>
 
-
-        {/* =====================================================
-            DEFAULT OVERVIEW MENU
-
-            These buttons are displayed only while the operator
-            is on the Overview page.
-            ===================================================== */}
-
+        {/* DEFAULT OVERVIEW MENU */}
         {selectedPage === 'Overview' && (
           <>
             <button
@@ -84,8 +67,6 @@ function Header({
               <GraphIcon />
               <span>Graph</span>
             </button>
-
-
             <button
               className="header-button"
               onClick={() => navigateToPage('Alarms')}
@@ -93,8 +74,6 @@ function Header({
               <AlarmIcon />
               <span>Alarms</span>
             </button>
-
-
             <button
               className="header-button"
               onClick={() => navigateToPage('Setup')}
@@ -102,8 +81,6 @@ function Header({
               <SetupIcon />
               <span>Setup</span>
             </button>
-
-
             <button
               className="header-button"
               onClick={() => navigateToPage('Charge')}
@@ -111,8 +88,6 @@ function Header({
               <ChargeIcon />
               <span>Charge</span>
             </button>
-
-
             <button
               className="header-button"
               onClick={() => navigateToPage('Data')}
@@ -120,8 +95,6 @@ function Header({
               <DataIcon />
               <span>Data</span>
             </button>
-
-
             <button
               className="header-button"
               onClick={() => navigateToPage('Info')}
@@ -129,8 +102,6 @@ function Header({
               <InfoIcon />
               <span>Info</span>
             </button>
-
-
             <button
               className="header-button"
               onClick={() => navigateToPage('Help')}
@@ -141,16 +112,7 @@ function Header({
           </>
         )}
 
-
-        {/* =====================================================
-            SECONDARY PAGE MENU
-
-            When the operator leaves Overview, the normal menu
-            is replaced with Back, Forward, Undo and Save.
-
-            Functionality will be added later.
-            ===================================================== */}
-
+        {/*SECONDARY PAGE MENU */}
         {selectedPage !== 'Overview' && (
           <>
             <button 
@@ -161,7 +123,6 @@ function Header({
               <BackIcon />
               <span>Back</span>
             </button>
-
             <button 
               className="header-button"
               onClick={goForward}
@@ -170,36 +131,28 @@ function Header({
               <ForwardIcon />
               <span>Forward</span>
             </button>
-
             <button 
               className="header-button"
-              disabled
+              onClick={onUndo}
+              disabled={!canUndo}
             >
               <UndoIcon />
               <span>Undo</span>
             </button>
-
             <button 
               className="header-button"
-              disabled
+              onClick={onSave}
+              disabled={!canSave}
             >
               <SaveIcon />
               <span>Save</span>
             </button>
           </>
         )}
-
       </div>
 
-
-      {/* =====================================================
-          USER AREA
-
-          This remains visible on every page.
-          ===================================================== */}
-
+      {/* USER AREA */}
       <div className="header-user">
-
         <button
           className={`header-button ${
             selectedPage === 'User' ? 'selected' : ''
@@ -210,9 +163,7 @@ function Header({
           <span>User</span>
         </button>
 
-
         {/* USER DETAILS */}
-
         <div
           className="user-information"
           style={{
@@ -225,22 +176,17 @@ function Header({
           }}
         >
           <span className="user-name">MCE</span>
-
           <span className="user-location">
             Costa Mesa
           </span>
-
           <span className="user-role">
             Admin
           </span>
-
           <span className="user-datetime">
             10/02/2026 4:15pm
           </span>
         </div>
-
       </div>
-
     </header>
   )
 }
