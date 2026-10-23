@@ -19,6 +19,7 @@ import newmarLogo from '../assets/newmar-logo.png'
 
 function Header({
   selectedPage,
+  selectedEquipment,
   setSelectedPage,
   setSelectedEquipment,
   navigateToPage,
@@ -33,6 +34,7 @@ function Header({
   canSave = false
 }) {
 
+  const showOverviewMenu = selectedPage === 'Overview' && selectedEquipment === 'Overview'
   return (
     <header className="hmi-header">
       {/* PRODUCT LOGO */}
@@ -58,7 +60,7 @@ function Header({
         </button>
 
         {/* DEFAULT OVERVIEW MENU */}
-        {selectedPage === 'Overview' && (
+        {showOverviewMenu && (
           <>
             <button
               className="header-button"
@@ -113,7 +115,8 @@ function Header({
         )}
 
         {/*SECONDARY PAGE MENU */}
-        {selectedPage !== 'Overview' && (
+        {/* Global Action Buttons */}
+        {!showOverviewMenu && (
           <>
             <button 
               className="header-button"

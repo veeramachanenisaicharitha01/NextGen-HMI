@@ -7,6 +7,9 @@
 // Import React's useState function. (useState allows the HMI to remember which section the operator has selected.)
 import { useState } from 'react'
 
+import useActionHistory from './hooks/useActionHistory'
+import useConfigurationHistory from './hooks/useConfigurationHistory'
+
 // Import the CSS file that controls the appearance and layout of this HMI.
 import './App.css'
 
@@ -40,10 +43,22 @@ const systemData = {
 // App() is the main React component. Everything returned by this function is displayed as part of the NextGen HMI.
 // ============================================================
 
+const defaultConfiguration = {
+  overview: {
+    measurements: ['Battery Current', 'Battery Voltage'],
+    timeRange: '24 Hours'
+  },
+  graph: {
+    configuredMeasurements: ['Battery Current', 'Battery Voltage'],
+    measurements: ['Battery Current', 'Battery Voltage'],
+    timeRange: '24 Hours'
+  }
+}
+
 function App() {
 
   // Global HMI State
-  const [hmiState, setHmiState] = useState({
+  const {state: hmiState, recordAction, goBack, goForward, commitConfiguration, canGoBack, canGoForward} = useActionHistory({
     page: 'Overview',
     overview: {
       selectedEquipment: 'Overview',
@@ -60,8 +75,14 @@ function App() {
       timeRange: '24 Hours'
     }
   })
-  const [backHistory, setBackHistory] = useState([])
-  const [forwardHistory, setForwardHistory] = useState([])
+  const {
+    versions,
+    currentVersionIndex,
+    saveConfiguration,
+    undoConfiguration,
+    confirmUndo,
+    canUndo
+  } = useConfigurationHistory(defaultConfiguration)
   const selectedPage = hmiState.page
   const selectedEquipment = hmiState.overview.selectedEquipment
   const selectedMeasurements = hmiState.graph.measurements
@@ -70,13 +91,34 @@ function App() {
   const overviewMeasurements = hmiState.overview.measurements
   const overviewTimeRange = hmiState.overview.timeRange
   const updateHmiState = (newState) => {
-    setBackHistory((history) => [
-      ...history,
-      hmiState
-    ])
-    setForwardHistory([])
-    setHmiState(newState)
+    recordAction(newState)
   }
+
+  //Global save configuration
+  const handleSave = () => {
+    const configuration = {
+      overview : {
+        measurements: [...hmiState.overview.measurements],
+        timeRange: hmiState.overview.timeRange
+      },
+      graph: structuredClone(hmiState.graph)
+    }
+    saveConfiguration(configuration)
+    commitConfiguration(configuration)
+    console.log('Configuration saved successfully')
+  }
+
+  // Global Undo function
+  const handleUndo = () => {
+    const previousConfiguration = undoConfiguration()
+    if(previousConfiguration === null) {
+      return
+    }
+    commitConfiguration(previousConfiguration)
+    confirmUndo()
+    console.log('Previous saved configuration restored')
+  }
+
   const setSelectedPage = (newPage) => {
     updateHmiState({
       ...hmiState,
@@ -116,7 +158,9 @@ function App() {
       page: 'Overview',
       overview: {
         ...hmiState.overview,
-        selectedEquipment: 'Overview'
+        selectedEquipment: 'Overview',
+        measurements: ['Battery Current', 'Battery Voltage'],
+        timeRange: '24 Hours'
       }
     })
   }
@@ -157,36 +201,7 @@ function App() {
       page: newPage
     })
   }
-  const goBack = () => {
-  if (backHistory.length === 0) {
-    return
-   }
-  const previousState =
-    backHistory[backHistory.length - 1]
-  setForwardHistory((history) => [
-    hmiState,
-    ...history
-  ])
-  setBackHistory((history) =>
-    history.slice(0, -1)
-  )
-  setHmiState(previousState)
-  }
-  const goForward = () => {
-  if (forwardHistory.length === 0) {
-    return
-    }
-  const nextState = forwardHistory[0]
-  setBackHistory((history) => [
-    ...history,
-    hmiState
-  ])
-  setForwardHistory((history) =>
-    history.slice(1)
-  )
-  setHmiState(nextState)
-}
-
+  
   return (
     // COMPLETE HMI SCREEN
     <div className="hmi">
@@ -195,14 +210,19 @@ function App() {
       <Header
         systemData={systemData}
         selectedPage={selectedPage}
+        selectedEquipment={selectedEquipment}
         setSelectedPage={setSelectedPage}
         setSelectedEquipment={setSelectedEquipment}
         navigateToPage={navigateToPage}
         goToOverview={goToOverview}
         goBack={goBack}
         goForward={goForward}
-        canGoBack={backHistory.length > 0}
-        canGoForward={forwardHistory.length > 0}
+        canGoBack={canGoBack}
+        canGoForward={canGoForward}
+        onSave={handleSave}
+        canSave={true}
+        onUndo={handleUndo}
+        canUndo={canUndo}
       />
       {/* Overview Page */}
       {selectedPage === 'Overview' && (
